@@ -1,0 +1,12 @@
+.main-container {
+  height: 530px;
+  width: 345px;
+  margin-left: 13px;
+  border: 1px solid gray;
+  margin-top: 30px;
+}
+.parent-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
