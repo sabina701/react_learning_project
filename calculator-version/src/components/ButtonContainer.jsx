@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./ButtonContainer.module.css";
-const ButtonContainer = () => {
+const ButtonContainer = ({ handleClick }) => {
   const buttons = [
     "c",
     "1",
@@ -15,7 +15,7 @@ const ButtonContainer = () => {
     "7",
     "8",
     "/",
-    "*",
+    "=",
     "9",
     "0",
     ".",
@@ -23,7 +23,12 @@ const ButtonContainer = () => {
   return (
     <div className={`${styles["btn-container"]}`}>
       {buttons.map((item) => (
-        <button className={`${styles["child-btns"]}`}>{item}</button>
+        <button
+          onClick={() => handleClick(item)}
+          className={`${styles["child-btns"]}`}
+        >
+          {item}
+        </button>
       ))}
     </div>
   );
