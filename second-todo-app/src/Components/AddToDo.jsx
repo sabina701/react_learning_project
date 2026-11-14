@@ -1,37 +1,33 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import styles from "./AddToDo.module.css";
 const AddToDo = ({ onNewItem }) => {
-  const [todoName, setTodoName] = useState();
-  const [todoDate, setTodoDate] = useState();
-  const handleTodoName = (e) => {
-    setTodoName(e.target.value);
-  };
-  const handleTodoDate = (e) => {
-    setTodoDate(e.target.value);
+  const todoElement = useRef();
+  const todoDueDateElement = useRef();
+
+  const handleAddButtonClicked = (e) => {
+    e.preventDefault();
+    const todoName = todoElement.current.value;
+    const todoDate = todoDueDateElement.current.value;
+
+    todoElement.current.value = "";
+    todoDueDateElement.current.value = "";
+    onNewItem(todoName, todoDate);
   };
   return (
     <div className="container text-center">
-      <div className="row">
+      <form className="row" onSubmit={handleAddButtonClicked}>
         <div class="col-4">
-          <input
-            type="text"
-            placeholder="Enter Todo Here"
-            onChange={handleTodoName}
-          />
+          <input type="text" ref={todoElement} placeholder="Enter Todo Here" />
         </div>
         <div className="col-4">
-          <input type="date" onChange={handleTodoDate} />
+          <input type="date" ref={todoDueDateElement} />
         </div>
         <div className={`col-2`}>
-          <button
-            type="button"
-            className={`btn btn-success  ${styles["kgAdd"]}  `}
-            onClick={() => onNewItem(todoName, todoDate)}
-          >
+          <button className={`btn btn-success  ${styles["kgAdd"]}  `}>
             Add
           </button>
         </div>
-      </div>
+      </form>
     </div>
   );
 };
