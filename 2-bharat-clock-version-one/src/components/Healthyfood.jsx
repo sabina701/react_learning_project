@@ -1,20 +1,16 @@
 import React from "react";
+import Fooditems from "./Fooditems";
+import Errormessage from "./Errormessage";
 
 const Healthyfood = () => {
-  let foodItems = ["Dal", "Vegetables", "spinach", "pumpkin", "soyabean"];
+  let foodItems = ["sabji", "Vegetables", "spinach", "pumpkin", "soyabean"];
   //   let foodItems = [];
 
   return (
     <React.Fragment>
       <h1 className="m-5">Healthy Food</h1>
-      <ul className="list-group">
-        {foodItems.length === 0 && "Nothing more"}
-        {foodItems.map((item) => (
-          <li key={item} className="list-group-item">
-            {item}
-          </li>
-        ))}
-      </ul>
+      <Fooditems arrayfooditem={foodItems} />
+      <Errormessage arrayfooditem={foodItems} />
     </React.Fragment>
   );
 };

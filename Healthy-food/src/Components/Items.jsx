@@ -1,19 +1,22 @@
-import React from "react";
+import React, { act, useState } from "react";
 import Item from "./Item";
 
-const Items = () => {
-  const items = [
-    "Sabzi",
-    "Green Vegetables",
-    "Roti",
-    "Salad",
-    "Milk",
-    "paneer",
-  ];
+const Items = ({ items }) => {
+  let [activeItems, setActiveItems] = useState([]);
+
+  const handleBuyButton = (e, item) => {
+    let BuyActiveItem = [...activeItems, item];
+    setActiveItems(BuyActiveItem);
+  };
   return (
     <div>
       {items.map((item) => (
-        <Item key={item} item={item} />
+        <Item
+          key={item}
+          bought={activeItems.includes(item)}
+          item={item}
+          handleBuyButton={(e) => handleBuyButton(e, item)}
+        />
       ))}
     </div>
   );
