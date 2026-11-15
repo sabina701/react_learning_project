@@ -1,8 +1,10 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import styles from "./AddToDo.module.css";
-const AddToDo = ({ onNewItem }) => {
+import { TodoItemsContext } from "../store/todo-items-store";
+const AddToDo = () => {
   const todoElement = useRef();
   const todoDueDateElement = useRef();
+  const { addNewItem } = useContext(TodoItemsContext);
 
   const handleAddButtonClicked = (e) => {
     e.preventDefault();
@@ -11,7 +13,7 @@ const AddToDo = ({ onNewItem }) => {
 
     todoElement.current.value = "";
     todoDueDateElement.current.value = "";
-    onNewItem(todoName, todoDate);
+    addNewItem(todoName, todoDate);
   };
   return (
     <div className="container text-center">
