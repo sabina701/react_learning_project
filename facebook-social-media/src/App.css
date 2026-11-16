@@ -1,0 +1,5 @@
+.content-container {
+  display: flex;
+  max-height: 900;
+  flex-wrap: wrap;
+}
