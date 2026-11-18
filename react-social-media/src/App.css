@@ -1,0 +1,17 @@
+.footer-end {
+  background-color: black;
+}
+
+.mid-container {
+  display: flex;
+  flex: 1;
+}
+.child-card {
+  margin: 10px 20px;
+}
+.my-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
