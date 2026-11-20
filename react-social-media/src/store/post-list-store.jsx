@@ -3,22 +3,17 @@ import { createContext, useReducer } from "react";
 export const postListContext = createContext({
   cardList: [],
   addItems: () => {},
+  addInitialItems: () => {},
   deleteItems: () => {},
 });
-const defaultItems = [
-  {
-    id: "1",
-    title: "Visiting to the europe",
-    body: "It was so enjoyful",
-    hashtags: ["dancing", "singing", "travelling"],
-    reactions: "33",
-  },
-];
 
 const cardListReducer = (currentList, action) => {
   let newList = currentList;
   if (action.type === "ADD") {
     newList = [action.payload, ...currentList];
+  }
+  if (action.type === "ADD_INITIAL_POST") {
+    newList = action.payload.posts;
   }
   if (action.type === "DELETE") {
     newList = currentList.filter((list) => {
@@ -30,24 +25,29 @@ const cardListReducer = (currentList, action) => {
 };
 
 const PostListProvider = ({ children }) => {
-  const [cardList, dispatchCardList] = useReducer(
-    cardListReducer,
-    defaultItems,
-  );
-  const addItems = (id, title, body, hashtags, reactions) => {
+  const [cardList, dispatchCardList] = useReducer(cardListReducer, []);
+  const addItems = (id, title, body, tags, reactions) => {
     const addItemAction = {
       type: "ADD",
       payload: {
         id,
         title,
         body,
-        hashtags,
+        tags,
         reactions,
       },
     };
     dispatchCardList(addItemAction);
   };
-
+  const addInitialItems = (posts) => {
+    const addItemAction = {
+      type: "ADD_INITIAL_POST",
+      payload: {
+        posts,
+      },
+    };
+    dispatchCardList(addItemAction);
+  };
   const deleteItems = (id) => {
     const deleteItemAction = {
       type: "DELETE",
@@ -59,7 +59,9 @@ const PostListProvider = ({ children }) => {
   };
 
   return (
-    <postListContext.Provider value={{ cardList, addItems, deleteItems }}>
+    <postListContext.Provider
+      value={{ cardList, addInitialItems, addItems, deleteItems }}
+    >
       {children}
     </postListContext.Provider>
   );

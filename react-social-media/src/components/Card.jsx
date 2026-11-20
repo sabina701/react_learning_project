@@ -2,12 +2,12 @@ import React, { useContext, useRef } from "react";
 import { postListContext } from "../store/post-list-store";
 import { AiFillDelete } from "react-icons/ai";
 const Card = ({ card }) => {
-  console.log("Complete card:", card);
-  console.log("Hashtags:", card.hashtags);
-  console.log("Is array:", Array.isArray(card.hashtags));
-
   // remaining code
-  const { cardList, deleteItems } = useContext(postListContext);
+  const { deleteItems } = useContext(postListContext);
+  console.log("the hashtag:", card.title);
+  console.log("the id:", card.id);
+  console.log("the body:", card.body);
+  console.log("the hashtag:", card.tags);
 
   return (
     <>
@@ -28,14 +28,15 @@ const Card = ({ card }) => {
 
           <p className="card-text">{card.body}</p>
 
-          {card.hashtags.map((item, index) => (
+          {card.tags.map((item, index) => (
             <button key={index} className="btn btn-success m-1">
               {item}
             </button>
           ))}
 
           <div className="alert alert-success" role="alert">
-            This was reacted by {card.reactions} people
+            Likes: {card.reactions.likes}
+            Dislikes:{card.reactions.dislikes}
           </div>
         </div>
       </section>

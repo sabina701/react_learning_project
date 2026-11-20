@@ -14,17 +14,17 @@ const CreatePost = () => {
     const id = idElement.current.value;
     const title = titleElement.current.value;
     const body = BodyElement.current.value;
-    const hashtag = HashtagElement.current.value
+    const tags = HashtagElement.current.value
       .split(",")
       .map((tag) => tag.trim());
-    const reaction = reactionElement.current.value;
+    const reactions = reactionElement.current.value;
     idElement.current.value = "";
     titleElement.current.value = "";
     BodyElement.current.value = "";
     HashtagElement.current.value = "";
     reactionElement.current.value = "";
 
-    addItems(id, title, body, hashtag, reaction);
+    addItems(id, title, body, tags, reactions);
   };
 
   return (
