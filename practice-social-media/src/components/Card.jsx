@@ -3,6 +3,7 @@ import { AiFillDelete } from "react-icons/ai";
 import { CardListContext } from "../store/post-list-store";
 const Card = ({ card }) => {
   const { deleteItemAction } = useContext(CardListContext);
+  console.log(card.tags);
   return (
     <div className="card mt-3" style={{ width: "18rem" }}>
       <div className="card-body">
@@ -20,14 +21,14 @@ const Card = ({ card }) => {
 
         <p className="card-text">{card.content}</p>
 
-        {card.Hashtag.map((item) => (
+        {card.tags.map((item) => (
           <button type="button" className="btn btn-success ms-3">
             {item}
           </button>
         ))}
 
         <div className="alert alert-success mt-3" role="alert">
-          This was reacted by {card.reaction} people
+          Likes:{card.reactions.likes}; Dislikes:{card.reactions.dislikes}
         </div>
       </div>
     </div>

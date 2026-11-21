@@ -3,22 +3,17 @@ import { createContext, useReducer } from "react";
 export const CardListContext = createContext({
   CardList: [],
   addItemAction: () => {},
+  addInitialItemAction: () => {},
   deleteItemAction: () => {},
 });
 
-const defaultItems = [
-  {
-    id: "1",
-    title: "trip in london",
-    content: "london view was so good ",
-    Hashtag: ["swimming", "playing"],
-    reaction: "33",
-  },
-];
 const cardListReducer = (currentList, action) => {
   let newList = currentList;
   if (action.type === "ADD") {
     newList = [action.payload, ...currentList];
+  }
+  if (action.type === "ADD_INITIAL") {
+    newList = action.payload.posts;
   }
   if (action.type === "DELETE") {
     newList = currentList.filter((item) => {
@@ -30,23 +25,29 @@ const cardListReducer = (currentList, action) => {
 };
 
 const CardListProvider = ({ children }) => {
-  const [CardList, dispatchCardList] = useReducer(
-    cardListReducer,
-    defaultItems,
-  );
+  const [CardList, dispatchCardList] = useReducer(cardListReducer, []);
 
-  const addItemAction = (id, title, content, Hashtag, reaction) => {
+  const addItemAction = (id, title, body, tags, reactions) => {
     const addItem = {
       type: "ADD",
       payload: {
         id,
         title,
-        content,
-        Hashtag,
-        reaction,
+        body,
+        tags,
+        reactions,
       },
     };
     dispatchCardList(addItem);
+  };
+  const addInitialItemAction = (posts) => {
+    const addInitialItem = {
+      type: "ADD_INITIAL",
+      payload: {
+        posts,
+      },
+    };
+    dispatchCardList(addInitialItem);
   };
   const deleteItemAction = (id) => {
     const deleteItem = {
@@ -60,7 +61,12 @@ const CardListProvider = ({ children }) => {
 
   return (
     <CardListContext.Provider
-      value={{ CardList, addItemAction, deleteItemAction }}
+      value={{
+        CardList,
+        addItemAction,
+        deleteItemAction,
+        addInitialItemAction,
+      }}
     >
       {children}
     </CardListContext.Provider>
