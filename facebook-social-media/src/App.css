@@ -3,3 +3,14 @@
   max-height: 900;
   flex-wrap: wrap;
 }
+.post-card {
+  margin: 20px 50px;
+}
+
+.reactions {
+  margin: 20px 0px;
+}
+
+.top-form {
+  margin: 50px 100px;
+}

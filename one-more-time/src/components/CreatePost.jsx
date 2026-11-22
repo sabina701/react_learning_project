@@ -6,23 +6,21 @@ const CreatePost = () => {
   const idElement = useRef();
   const titleElement = useRef();
   const contentElement = useRef();
-  const hashtagElement = useRef();
+  const tagsElement = useRef();
   const reactionElement = useRef();
   const handleSubmit = (e) => {
     e.preventDefault();
     const id = idElement.current.value;
     const title = titleElement.current.value;
     const content = contentElement.current.value;
-    const hashtag = hashtagElement.current.value
-      .split(",")
-      .map((tag) => tag.trim());
+    const tags = tagsElement.current.value.split(",").map((tag) => tag.trim());
     const reaction = reactionElement.current.value;
     idElement.current.value = "";
     titleElement.current.value = "";
     contentElement.current.value = "";
-    hashtagElement.current.value = "";
+    tagsElement.current.value = "";
     reactionElement.current.value = "";
-    addItemAction(id, title, content, hashtag, reaction);
+    addItemAction(id, title, content, tags, reaction);
   };
   return (
     <form className="m-5" onSubmit={handleSubmit}>
@@ -73,7 +71,7 @@ const CreatePost = () => {
 
         <input
           type="text"
-          ref={hashtagElement}
+          ref={tagsElement}
           className="form-control"
           id="exampleFormControlInput1"
           placeholder="Enter your hashtag"

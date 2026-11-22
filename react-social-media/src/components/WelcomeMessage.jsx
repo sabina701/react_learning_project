@@ -1,12 +1,10 @@
 import React from "react";
 
-const WelcomeMessage = ({ onGetPostClick }) => {
+const WelcomeMessage = () => {
   return (
     <div>
       <h1>There are no posts</h1>
-      <button className="btn btn-success" onClick={onGetPostClick}>
-        get data from server
-      </button>
+      <button className="btn btn-success">get data from server</button>
     </div>
   );
 };

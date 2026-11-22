@@ -6,31 +6,30 @@ import "./App.css";
 import Card from "./components/Card";
 import Createpost from "./components/Createpost";
 import { useState } from "react";
-
+import PostListContextProvider from "./store/post-list-store";
+import PostList from "./components/PostList";
 const App = () => {
   const [selectData, setSelectData] = useState("Home");
   return (
-    <div className="items-container">
-      <Header />
-      <div className="content-container">
-        <div className="sidebar">
-          <Sidebar selectData={selectData} setSelectData={setSelectData} />
-        </div>
-        {selectData === "Home" ? (
-          <div className="card">
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
+    <PostListContextProvider>
+      <div className="items-container">
+        <Header />
+        <div className="content-container">
+          <div className="sidebar">
+            <Sidebar selectData={selectData} setSelectData={setSelectData} />
           </div>
-        ) : (
-          <Createpost />
-        )}
-      </div>
+          {selectData === "Home" ? (
+            <div className="card">
+              <PostList />
+            </div>
+          ) : (
+            <Createpost />
+          )}
+        </div>
 
-      <Footer />
-    </div>
+        <Footer />
+      </div>
+    </PostListContextProvider>
   );
 };
 

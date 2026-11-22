@@ -3,6 +3,7 @@ import { createContext, useReducer } from "react";
 export const CardListContext = createContext({
   cardList: [],
   addItemAction: () => {},
+  addInitialItemAction: () => {},
   deleteItemAction: () => {},
 });
 
@@ -10,9 +11,9 @@ const defaultItems = [
   {
     id: "1",
     title: "Trip to Canada",
-    content: "Canada has very cold weather",
-    hashtag: ["travelling", "enjoying", "swimming"],
-    reaction: "33",
+    body: "Canada has very cold weather",
+    tags: ["travelling", "enjoying", "swimming"],
+    reactions: { likes: 192, dislikes: 25 },
   },
 ];
 const cardListReducer = (currentList, action) => {
@@ -20,6 +21,11 @@ const cardListReducer = (currentList, action) => {
   if (action.type === "ADD") {
     newList = [action.payload, ...currentList];
   }
+
+  if (action.type === "ADD_INITIAL_ITEM") {
+    newList = [...action.payload.posts];
+  }
+
   if (action.type === "DELETE") {
     newList = currentList.filter((item) => {
       return item.id !== action.payload.id;
@@ -33,18 +39,27 @@ const CardListContextProvider = ({ children }) => {
     defaultItems,
   );
 
-  const addItemAction = (id, title, content, hashtag, reaction) => {
+  const addItemAction = (id, title, body, tags, reactions) => {
     const addItems = {
       type: "ADD",
       payload: {
         id,
         title,
-        content,
-        hashtag,
-        reaction,
+        body,
+        tags,
+        reactions,
       },
     };
     dispatchCardList(addItems);
+  };
+  const addInitialItemAction = (posts) => {
+    const addInitialItems = {
+      type: "ADD_INITIAL_ITEM",
+      payload: {
+        posts,
+      },
+    };
+    dispatchCardList(addInitialItems);
   };
   const deleteItemAction = (id) => {
     const deleteItems = {
@@ -57,7 +72,12 @@ const CardListContextProvider = ({ children }) => {
   };
   return (
     <CardListContext.Provider
-      value={{ cardList, addItemAction, deleteItemAction }}
+      value={{
+        cardList,
+        addItemAction,
+        deleteItemAction,
+        addInitialItemAction,
+      }}
     >
       {children}
     </CardListContext.Provider>

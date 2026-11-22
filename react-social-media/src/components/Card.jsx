@@ -4,10 +4,6 @@ import { AiFillDelete } from "react-icons/ai";
 const Card = ({ card }) => {
   // remaining code
   const { deleteItems } = useContext(postListContext);
-  console.log("the hashtag:", card.title);
-  console.log("the id:", card.id);
-  console.log("the body:", card.body);
-  console.log("the hashtag:", card.tags);
 
   return (
     <>

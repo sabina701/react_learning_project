@@ -4,6 +4,8 @@ import { MdDelete } from "react-icons/md";
 
 const Card = ({ card }) => {
   const { deleteItemAction } = useContext(CardListContext);
+  console.log(card);
+
   return (
     <div className="card mt-4" style={{ width: "22rem" }}>
       <div className="card-body">
@@ -15,13 +17,15 @@ const Card = ({ card }) => {
         </h5>
 
         <p className="card-text">{card.content}</p>
-        {card.hashtag.map((item) => (
+        {card.tags.map((item) => (
           <button className="btn btn-primary m-1 " key={item}>
             {item}
           </button>
         ))}
         <div className="alert alert-success mt-1 " role="alert">
-          This was reacted by {card.reaction} people
+          Likes: {card.reactions.likes}
+          <br />
+          Dislikes: {card.reactions.dislikes}
         </div>
       </div>
     </div>
