@@ -1,24 +1,24 @@
 import React, { useCallback, useState } from "react";
 
 const useLike = () => {
-  const [likes, setLikes] = useState(0);
+  const [count, setCount] = useState(0);
   const handleLike = useCallback(() => {
-    setLikes((prev) => {
+    setCount((prev) => {
       if (prev >= 10) {
         return prev;
       }
       return prev + 1;
     });
   }, []);
-  const handleunlike = useCallback(() => {
-    setLikes((prev) => {
+  const handleUnLike = useCallback(() => {
+    setCount((prev) => {
       if (prev <= 0) {
-        return 0;
+        return prev;
       }
       return prev - 1;
     });
   }, []);
-  return { likes, handleLike, handleunlike };
+  return { count, handleLike, handleUnLike };
 };
 
 export default useLike;
