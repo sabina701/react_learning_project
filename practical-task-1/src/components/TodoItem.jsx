@@ -1,19 +1,15 @@
 import React from "react";
 
-const TodoItem = ({ item, handleDelete }) => {
+const TodoItem = React.memo(({ item, handleDelete }) => {
+  console.log("todo rendered");
   return (
     <div>
-      <h2>{item.title}</h2>
-      <button
-        className="btn btn-danger"
-        onClick={() => {
-          handleDelete(item.id);
-        }}
-      >
+      <p>{item.title}</p>
+      <div className="btn btn-danger" onClick={() => handleDelete(item.id)}>
         Delete
-      </button>
+      </div>
     </div>
   );
-};
+});
 
 export default TodoItem;
